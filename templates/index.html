@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancer Risk Assessment AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        input[type="number"], select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            grid-column: 1 / -1; /* Span full width */
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result-box {
+            background-color: #e9e9e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            display: none; /* Hidden by default */
+        }
+        .result-box.show {
+            display: block;
+        }
+        .result-box p {
+            margin: 5px 0;
+            color: #333;
+        }
+        .disclaimer {
+            background-color: #ffe0b2; /* Light orange */
+            border: 1px solid #ffcc80;
+            padding: 15px;
+            border-radius: 5px;
+            color: #6d4c41; /* Darker brown */
+            font-size: 0.9em;
+            margin-top: 20px;
+            text-align: justify;
+        }
+        .doctor-resolution {
+            background-color: #e0f7fa; /* Light blue */
+            border: 1px solid #b2ebf2;
+            padding: 15px;
+            border-radius: 5px;
+            color: #006064; /* Darker cyan */
+            font-size: 0.95em;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .loading-spinner {
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none; /* Hidden by default */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cancer Risk Assessment AI</h1>
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> This tool uses a machine learning model for risk assessment based on the provided data. It is not a diagnostic tool and should not be used to replace professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare provider for any health concerns.
+        </p>
+
+        <h2>Tell Us About Yourself</h2>
+        <form id="predictionForm" class="form-grid">
+            <div class="form-group">
+                <label for="age">Your Age:</label>
+                <input type="number" id="age" name="age" min="1" max="120" required value="45">
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="family_history">Family History of Cancer (immediate family):</label>
+                <select id="family_history" name="family_history" required>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="smoking_history">Smoking History:</label>
+                <select id="smoking_history" name="smoking_history" required>
+                    <option value="never">Never Smoked</option>
+                    <option value="past">Former Smoker</option>
+                    <option value="current">Current Smoker</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="alcohol_consumption">Alcohol Consumption (average per week):</label>
+                <select id="alcohol_consumption" name="alcohol_consumption" required>
+                    <option value="none">None</option>
+                    <option value="low">1-3 drinks</option>
+                    <option value="moderate">4-7 drinks</option>
+                    <option value="high">More than 7 drinks</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="lump_noticed">Have you noticed any unusual lumps or swellings?</label>
+                <select id="lump_noticed" name="lump_noticed" required>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="unexplained_weight_loss">Experienced unexplained weight loss recently?</label>
+                <select id="unexplained_weight_loss" name="unexplained_weight_loss" required>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="persistent_fatigue">Experiencing persistent fatigue?</label>
+                <select id="persistent_fatigue" name="persistent_fatigue" required>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="skin_changes">Any recent changes in moles or skin?</label>
+                <select id="skin_changes" name="skin_changes" required>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="chronic_cough">Persistent cough or hoarseness?</label>
+                <select id="chronic_cough" name="chronic_cough" required>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+            <button type="submit">Get Risk Assessment</button>
+        </form>
+
+        <div class="loading-spinner" id="loadingSpinner"></div>
+
+        <div id="resultBox" class="result-box">
+            <h2>Risk Assessment Result:</h2>
+            <p>Overall Risk Status: <strong id="predictionStatus"></strong></p>
+            <p>Confidence Level: <strong id="predictionProbability"></strong></p>
+            <p class="doctor-resolution">
+                <strong id="doctorResolution"></strong>
+            </p>
+            <p style="font-size: 0.8em; color: #777;">Benign Probability: <span id="benignProbability"></span></p>
+            <p style="font-size: 0.8em; color: #777;">Malignant Probability: <span id="malignantProbability"></span></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => {
+                // No need to parse float for select values, they are strings
+                data[key] = value;
+            });
+            // For number inputs, ensure they are numbers
+            if (data.age) {
+                data.age = parseInt(data.age);
+            }
+
+
+            const resultBox = document.getElementById('resultBox');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            resultBox.classList.remove('show');
+            loadingSpinner.style.display = 'block';
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('predictionStatus').textContent = result.prediction === 'Malignant' ? 'High Risk' : 'Low Risk';
+                    document.getElementById('predictionProbability').textContent = result.probability;
+                    document.getElementById('benignProbability').textContent = result.benign_probability;
+                    document.getElementById('malignantProbability').textContent = result.malignant_probability;
+                    document.getElementById('doctorResolution').textContent = result.message;
+                    resultBox.classList.add('show');
+                } else {
+                    alert('Error: ' + (result.error || 'Unknown error occurred.'));
+                }
+
+            } catch (error) {
+                console.error('Fetch error:', error);
+                alert('Failed to connect to the prediction service. Please try again later.');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
