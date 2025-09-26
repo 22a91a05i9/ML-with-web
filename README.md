@@ -1,135 +1,119 @@
 
-````markdown
-# ML-with-web
+## ML-with-web
 
-A small web app that integrates a machine learning model for cancer prediction using a web interface.
-
----
-
-## 🧩 Project Overview
-
-This repository demonstrates how to deploy a trained ML model via a web interface:
-
-- `train_model.py` — script to train a model (and scaler) using a dataset.
-- `cancer_prediction_model.joblib` — the serialized trained model.
-- `scaler.joblib` — the serialized preprocessing scaler.
-- `app.py` — Flask web application to expose a prediction endpoint / UI.
-- `templates/` — HTML templates for the web interface.
-
-With this setup, users can input features in the web UI and get a prediction (e.g. cancer/no cancer) returned by the model.
+A simple web application that integrates a machine learning model for cancer prediction using a web interface.
 
 ---
 
-## ⚙️ Features
+## Project Overview
 
-- Model inference through HTTP (web) interface  
-- Preprocessing input via saved scaler  
-- Clean separation of training and serving code  
-- Simple, minimal UI for demonstration  
+This project demonstrates how to train and deploy a machine learning model through a web interface.
+
+Key components:
+
+* train_model.py – script to train a model and scaler using a dataset
+* cancer_prediction_model.joblib – serialized trained model
+* scaler.joblib – serialized preprocessing scaler
+* app.py – Flask web application for prediction endpoint and UI
+* templates/ – HTML templates for the user interface
+
+Users can enter feature values in the web UI and get a prediction such as "cancer" or "no cancer".
 
 ---
 
-## 🧪 Requirements & Setup
+## Features
 
-### Prerequisites
+* Model inference through a web interface
+* Preprocessing input via saved scaler
+* Clear separation of training and serving code
+* Simple and minimal user interface for demonstration
 
-- Python 3.x  
-- `pip` (or another Python package manager)  
+---
 
-### Install dependencies
+## Requirements and Setup
 
-You can use `requirements.txt` (if present) or install manually:
+Prerequisites:
 
-```bash
-pip install flask numpy pandas scikit-learn joblib
-````
+* Python 3.x
+* pip or any Python package manager
 
-### Running Locally
+Steps to run locally:
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/SabbellaLaharika/ML-with-web.git
+1. Clone the repository
+   git clone [https://github.com/SabbellaLaharika/ML-with-web.git](https://github.com/SabbellaLaharika/ML-with-web.git)
    cd ML-with-web
-   ```
 
-2. (Optional) Retrain model:
-
-   ```bash
+2. (Optional) Retrain the model
    python train_model.py
-   ```
 
-   This regenerates `cancer_prediction_model.joblib` and `scaler.joblib`.
+   This regenerates cancer_prediction_model.joblib and scaler.joblib.
 
-3. Start the web server:
+3. Install dependencies
+   pip install flask numpy pandas scikit-learn joblib
 
-   ```bash
+4. Start the web server
    python app.py
-   ```
 
-4. Open a browser and navigate to `http://127.0.0.1:5000/` to access the UI.
+5. Open the browser and go to [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
-5. Enter the required input features and get a prediction result.
+6. Enter input features in the form and receive predictions.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
-```
 ML-with-web/
 │
-├── templates/
-│   └── (HTML templates for the frontend)
-│
-├── app.py
-├── train_model.py
-├── cancer_prediction_model.joblib
-├── scaler.joblib
+├── templates/          - HTML templates for the frontend
+├── app.py              - Flask web server
+├── train_model.py      - training script for the ML model
+├── cancer_prediction_model.joblib - saved model
+├── scaler.joblib       - saved scaler
 └── README.md
-```
-
-* **`train_model.py`** — code to train the ML model (data loading, preprocessing, training, saving).
-* **`app.py`** — Flask application, handles HTTP routes, input parsing, model inference.
-* **`templates/`** — HTML templates (e.g. form, results) for rendering UI.
-* **`*.joblib` files** — serialized model and scaler used during inference.
 
 ---
 
-## 🚀 Usage
+## Usage and Workflow
 
-* Access the UI at the root route (e.g. `GET /`).
-* Input feature values (e.g. those used during training).
-* Submit the form to get prediction feedback (e.g. “Cancer” / “No Cancer”).
+* Access the web UI at the root route
+* Input feature values into the form
+* Submit the form to get prediction results
 
-You can also extend this to support:
+Possible extensions:
 
-* JSON API endpoints (for programmatic access)
-* Additional model types
-* More input validation
-* Better UI / CSS / JavaScript enhancements
-
----
-
-## ✅ Tips & Good Practices
-
-* Always preprocess new input using the same scaler as training.
-* Keep training and inference pipelines consistent.
-* Validate inputs before sending to the model to avoid erroneous predictions.
-* Use environment variables or config files for settings (ports, debug mode).
-* For production, consider using a WSGI server (e.g. Gunicorn) and containerization (Docker).
+* JSON API endpoints for programmatic access
+* Support for additional model types
+* Input validation improvements
+* Enhanced UI with CSS or JavaScript
 
 ---
 
-## 🧑‍💻 Contributions
+## Best Practices
 
-Contributions, bug fixes, or feature suggestions are welcome!
-Please open an issue or submit a pull request.
-If you add a new model or UI, update this README accordingly.
+* Always preprocess new input using the same scaler as training
+* Keep training and inference pipelines consistent
+* Validate inputs before predictions
+* Use environment variables or config files for settings
+* For production, use a WSGI server (e.g., Gunicorn) and containerization (Docker)
 
 ---
 
-> ⚠️ **Disclaimer:**
-> This is a demonstration / educational-level app.
-> For real clinical or production use, rigorous validation, error handling, security, and deployment practices are required.
+## Contributing
 
-```
+Contributions, bug fixes, and feature suggestions are welcome.
+Open an issue or submit a pull request.
+
+---
+
+## License
+
+Consider adding a license file (for example, MIT License) to clarify usage rights.
+
+---
+
+## Disclaimer
+
+This application is for demonstration and educational purposes.
+For clinical or production use, apply rigorous validation, error handling, security, and deployment practices.
+
+---
