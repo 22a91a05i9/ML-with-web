@@ -40,7 +40,7 @@ Prerequisites:
 Steps to run locally:
 
 1. Clone the repository
-   git clone [https://github.com/SabbellaLaharika/ML-with-web.git](https://github.com/SabbellaLaharika/ML-with-web.git)
+   git clone [https://github.com/22a91a05i9/ML-with-web.git](https://github.com/22a91a05i9/ML-with-web.git)
    cd ML-with-web
 
 2. (Optional) Retrain the model
