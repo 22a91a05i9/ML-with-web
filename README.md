@@ -61,7 +61,7 @@ Steps to run locally:
 ---
 
 ## Project Structure
-
+```
 ML-with-web/
 │
 ├── templates/          - HTML templates for the frontend
@@ -70,7 +70,7 @@ ML-with-web/
 ├── cancer_prediction_model.joblib - saved model
 ├── scaler.joblib       - saved scaler
 └── README.md
-
+```
 ---
 
 ## Usage and Workflow
