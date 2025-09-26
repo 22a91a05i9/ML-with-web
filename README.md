@@ -1,4 +1,3 @@
-Perfect 👍 Here’s the **complete, final `README.md`** file content you can copy directly into your repository:
 
 ````markdown
 # ML-with-web
@@ -129,17 +128,8 @@ If you add a new model or UI, update this README accordingly.
 
 ---
 
-## 📄 License & Acknowledgements
-
-You can add a license file (e.g. MIT) if you want to make the terms clear.
-
----
-
 > ⚠️ **Disclaimer:**
 > This is a demonstration / educational-level app.
 > For real clinical or production use, rigorous validation, error handling, security, and deployment practices are required.
 
-```
-
-Would you like me to also create a **requirements.txt** file for this repo (so anyone can install dependencies with one command)?
 ```
