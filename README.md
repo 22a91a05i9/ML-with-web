@@ -1,4 +1,3 @@
-
 ## ML-with-web
 
 A simple web application that integrates a machine learning model for cancer prediction using a web interface.
@@ -16,6 +15,7 @@ Key components:
 * scaler.joblib – serialized preprocessing scaler
 * app.py – Flask web application for prediction endpoint and UI
 * templates/ – HTML templates for the user interface
+* Download dataset / model (Google Drive): https://drive.google.com/file/d/1r0U7sWl0FC4O0syMeR7q5Oz_iEQvbuVp/view?usp=drive_link
 
 Users can enter feature values in the web UI and get a prediction such as "cancer" or "no cancer".
 
@@ -47,6 +47,8 @@ Steps to run locally:
    python train_model.py
 
    This regenerates cancer_prediction_model.joblib and scaler.joblib.
+
+   If you prefer to use the provided trained model or dataset, download them from the Google Drive link above and place the files in the project root.
 
 3. Install dependencies
    pip install flask numpy pandas scikit-learn joblib
